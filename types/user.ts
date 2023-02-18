@@ -1,7 +1,7 @@
 import { FinancialData } from "../libs/finance";
-import { PersonalData } from "../libs/personal";
+import { Personal } from "./personal";
 
 export interface User {
-  personal: PersonalData,
+  personal: Personal,
   finance: FinancialData,
 }

@@ -3,6 +3,7 @@ import * as cors from "cors";
 import { json } from "express";
 import 'express-async-errors'
 import { userRouter } from "./routes/user";
+import './utils/db'
 
 
 const app = express();
