@@ -5,6 +5,17 @@ import { User } from "../types/user";
 
 export const userRouter = express.Router()
   .get('/', async (req, res) => {
-    const data = await Personal.getAllUsers()
-    
+    const data = await Personal.getAllUsers();
+    res.json(data)
+  })
+  .post('/add', async (req, res) => {
+    const user = new Personal(req.body);
+    await user.addUser();
+    res.json(user);
+  })
+  .delete('/delete', async (req, res) => {
+    const user = await Personal.getUser(req.body.id);
+    if (user) {
+      user.deleteUser()
+    }
   })

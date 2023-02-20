@@ -28,9 +28,9 @@ export class Personal implements PersonalData{
     if(!obj.job || obj.job.length > 100) {
       throw new ValidationError('Nie prawidłowa wartość pola "stanowisko"');
     };
-    if(!obj.id) {
+/*     if(!obj.id) {
       obj.id = uuid();
-    }
+    } */
 
     this.id = obj.id;
     this.name = obj.name;
@@ -38,14 +38,34 @@ export class Personal implements PersonalData{
     this.job = obj.job;
   }
   static async getAllUsers (): Promise<Personal[]> {
-    const [result] = await pool.execute('SELECT * FROM `user_finance` ORDER BY `name` ASC') as PersonalResult;
+    const [result] = await pool.execute('SELECT * FROM `user` ORDER BY `name` ASC') as PersonalResult;
+    console.log(result);
     return result.map((obj) => new Personal(obj))
   };
 
-  static async getPersonalUser (id: string): Promise<Personal | null> {
+  static async getUser (id: string): Promise<Personal | null> {
     const [result] = await pool.execute('SELECT `name`, `surname`, `job` FROM `user` WHERE `id`=:id', {
       id,
     }) as PersonalResult;
     return result.length === 0 ? null : new Personal(result[0]);
+  };
+
+  async addUser (): Promise<string> {
+    if (!this.id) {
+      this.id = uuid();
+    };
+    await pool.execute('INSERT INTO `user` (`id`, `name`, `surname`, `job`) VALUES (:id, :name, :surname, :job)', {
+      id: this.id,
+      name: this.name,
+      surname: this.surname,
+      job: this.job,
+    });
+    return this.id;
+  };
+
+  async deleteUser (): Promise<void> {
+    await pool.execute('DELETE FROM `user` WHERE `id`=:id', {
+      id: this.id,
+    })
   };
 }
