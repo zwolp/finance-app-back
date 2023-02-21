@@ -44,7 +44,7 @@ export class Personal implements PersonalData{
     return result.map((obj) => new Personal(obj))
   };
   static async getPersonal (id: string): Promise<Personal | null> {
-    const [result] = await pool.execute('SELECT `name`, `surname`, `job` FROM `user` WHERE `id`=:id', {
+    const [result] = await pool.execute('SELECT * FROM `user` WHERE `id`=:id', {
       id,
     }) as PersonalResult;
     return result.length === 0 ? null : new Personal(result[0]);
