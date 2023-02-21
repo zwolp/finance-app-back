@@ -1,6 +1,10 @@
+import { FieldPacket } from "mysql2";
 import  {v4 as uuid} from "uuid"
 import { pool } from "../utils/db";
 import { ValidationError } from "../utils/errors";
+
+type FinanceResult = [Finance[], FieldPacket[]];
+
 export interface FinancialData {
   salary: number,
   savings: number,
@@ -32,9 +36,10 @@ export class Finance implements FinancialData{
     this.monthlyExpanse = obj.monthlyExpanse;
   }
 
-  static async getFinanceUser (id: string): Promise<any> {
+  static async getFinance (id: string): Promise<Finance | null> {
     const [result] = await pool.execute('SELECT `salary`, `savings`, `monthly expanse` FROM `finance` WHERE `id`=:id', {
       id,
-    })
+    }) as FinanceResult;
+    return result.length === 0 ? null : result[0]
   }
 }

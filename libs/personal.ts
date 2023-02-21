@@ -3,7 +3,9 @@ import  {v4 as uuid} from "uuid"
 import { User } from "../types/user";
 import { pool } from "../utils/db";
 import { ValidationError } from "../utils/errors";
+import { Finance } from "./finance";
 
+type UserResult = [User[], FieldPacket[]];
 type PersonalResult = [Personal[], FieldPacket[]];
 
 export interface PersonalData {
@@ -37,17 +39,23 @@ export class Personal implements PersonalData{
     this.surname = obj.surname;
     this.job = obj.job;
   }
-  static async getAllUsers (): Promise<Personal[]> {
+  static async getAllPersonal (): Promise<Personal[]> {
     const [result] = await pool.execute('SELECT * FROM `user` ORDER BY `name` ASC') as PersonalResult;
-    console.log(result);
     return result.map((obj) => new Personal(obj))
   };
-
-  static async getUser (id: string): Promise<Personal | null> {
+  static async getPersonal (id: string): Promise<Personal | null> {
     const [result] = await pool.execute('SELECT `name`, `surname`, `job` FROM `user` WHERE `id`=:id', {
       id,
     }) as PersonalResult;
     return result.length === 0 ? null : new Personal(result[0]);
+  };
+
+  static async getUser (id: string): Promise<User | null> {
+    const [result] = await pool.execute('SELECT `userId`, `financeId` FROM `user_finance` WHERE `userId`=:id', {
+      id,
+    }) as UserResult;
+
+    return result.length === 0 ? null : result[0];
   };
 
   async addUser (): Promise<string> {
