@@ -1,22 +1,18 @@
 import * as express from "express";
 import { Finance, FinancialData } from "../libs/finance";
-import { Personal, PersonalData } from "../libs/personal";
+import { User, UserData } from "../libs/user";
 
 export const userRouter = express.Router()
   .get('/', async (req, res) => {
-    const data = await Personal.getAllPersonal();
+    const data = await User.getAllUsers();
     res.json(data)
   })
   .get('/:id', async (req, res) => {
-    const record = await Personal.getUser(req.params.id);
-    const user = {
-      personal: await Personal.getPersonal(record.userId),
-      finance: await Finance.getFinance(record.financeId),
-    };
+    const user = await User.getUser(req.params.id);
     res.json(user);
   })
   .post('/add', async (req, res) => {
-    const user = new Personal(req.body);
+    const user = new User(req.body);
     await user.addUser();
     res.json(user);
   });
