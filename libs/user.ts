@@ -3,7 +3,6 @@ import  {v4 as uuid} from "uuid"
 import { UserType } from "../types/user";
 import { pool } from "../utils/db";
 import { ValidationError } from "../utils/errors";
-import { Finance } from "./finance";
 
 type UserResult = [UserType[], FieldPacket[]];
 
@@ -44,6 +43,7 @@ export class User implements UserData{
     const [result] = await pool.execute('SELECT * FROM `user` ORDER BY `name` ASC') as UserResult;
     return result.map((obj) => new User(obj))
   };
+
   static async getUser (id: string): Promise<User | null> {
     const [result] = await pool.execute('SELECT * FROM `user` WHERE `id`=:id', {
       id,
@@ -55,9 +55,7 @@ export class User implements UserData{
     if (!this.id) {
       this.id = uuid();
     };
-/*     if (!this.finance) {
-      this.finance = uuid();
-    } */
+
     await pool.execute('INSERT INTO `user` (`id`, `name`, `surname`, `job`) VALUES (:id, :name, :surname, :job)', {
       id: this.id,
       name: this.name,
@@ -66,6 +64,13 @@ export class User implements UserData{
     });
     return this.id;
   };
+
+  static async addUserFinance (userId: string, financeId: string): Promise<void> {
+    await pool.execute('UPDATE `user` SET `finance`=:financeId WHERE `id`=:userId', {
+      userId,
+      financeId,
+    })
+  }
 
   async deleteUser (): Promise<void> {
     await pool.execute('DELETE FROM `user` WHERE `id`=:id', {

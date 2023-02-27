@@ -45,7 +45,7 @@ export class Finance implements FinancialData{
       this.id = uuid();
     }
 
-    await pool.execute('INSERT INTO `finance` (`id`, `salary`, `savings`, `monthly expanse`) VALUES (:id, :salary, :savings, :jmonthlyExpanse)', {
+    await pool.execute('INSERT INTO `finance` (`id`, `salary`, `savings`, `monthly expanse`) VALUES (:id, :salary, :savings, :monthlyExpanse)', {
       id: this.id,
       salary: this.salary,
       savings: this.savings,
