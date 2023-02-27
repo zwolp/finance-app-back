@@ -26,9 +26,6 @@ export class Finance implements FinancialData{
     if(!obj.monthlyExpanse || obj.monthlyExpanse > 9999999) {
       throw new ValidationError('Nie prawidłowa wartość pola "miesięczne wydatki"');
     };
-    if(!obj.id) {
-      obj.id = uuid();
-    }
 
     this.id = obj.id;
     this.salary = obj.salary;
@@ -41,5 +38,20 @@ export class Finance implements FinancialData{
       id,
     }) as FinanceResult;
     return result.length === 0 ? null : result[0]
+  }
+
+  async addFinance (): Promise<string> {
+    if (!this.id) {
+      this.id = uuid();
+    }
+
+    await pool.execute('INSERT INTO `finance` (`id`, `salary`, `savings`, `monthly expanse`) VALUES (:id, :salary, :savings, :jmonthlyExpanse)', {
+      id: this.id,
+      salary: this.salary,
+      savings: this.savings,
+      monthlyExpanse: this.monthlyExpanse,
+    })
+
+    return this.id
   }
 }

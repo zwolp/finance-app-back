@@ -1,6 +1,6 @@
 import * as express from "express";
-import { Finance, FinancialData } from "../libs/finance";
-import { User, UserData } from "../libs/user";
+import { Finance } from "../libs/finance";
+import { User } from "../libs/user";
 
 export const userRouter = express.Router()
   .get('/', async (req, res) => {

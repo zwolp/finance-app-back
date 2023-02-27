@@ -55,15 +55,14 @@ export class User implements UserData{
     if (!this.id) {
       this.id = uuid();
     };
-    if (!this.finance) {
+/*     if (!this.finance) {
       this.finance = uuid();
-    }
-    await pool.execute('INSERT INTO `user` (`id`, `name`, `surname`, `job`, `finance`) VALUES (:id, :name, :surname, :job, :finance)', {
+    } */
+    await pool.execute('INSERT INTO `user` (`id`, `name`, `surname`, `job`) VALUES (:id, :name, :surname, :job)', {
       id: this.id,
       name: this.name,
       surname: this.surname,
       job: this.job,
-      finance: this.finance
     });
     return this.id;
   };
