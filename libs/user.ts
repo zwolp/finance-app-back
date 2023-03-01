@@ -6,21 +6,14 @@ import { ValidationError } from "../utils/errors";
 
 type UserResult = [UserType[], FieldPacket[]];
 
-export interface UserData {
-  name: string,
-  surname: string,
-  job: string,
-  finance: string,
-  id?: string,
-}
-export class User implements UserData{
+export class User implements UserType{
   id?: string;
   name: string;
   surname: string;
   job: string;
-  finance: string;
+  financeId: string;
 
-  constructor(obj: UserData){
+  constructor(obj: UserType){
     if(!obj.name || obj.name.length > 100) {
       throw new ValidationError('Nie prawidłowa wartość pola "imię"');
     };
@@ -36,7 +29,7 @@ export class User implements UserData{
     this.name = obj.name;
     this.surname = obj.surname;
     this.job = obj.job;
-    this.finance = obj.finance;
+    this.financeId = obj.financeId;
   }
   
   static async getAllUsers (): Promise<User[]> {
@@ -66,15 +59,9 @@ export class User implements UserData{
   };
 
   static async addUserFinance (userId: string, financeId: string): Promise<void> {
-    await pool.execute('UPDATE `user` SET `finance`=:financeId WHERE `id`=:userId', {
+    await pool.execute('UPDATE `user` SET `financeId`=:financeId WHERE `id`=:userId', {
       userId,
       financeId,
     })
   }
-
-  async deleteUser (): Promise<void> {
-    await pool.execute('DELETE FROM `user` WHERE `id`=:id', {
-      id: this.id,
-    })
-  };
 }

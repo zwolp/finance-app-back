@@ -1,15 +1,15 @@
-import { FieldPacket } from "mysql2";
-import  {v4 as uuid} from "uuid"
 import { pool } from "../utils/db";
 import { ValidationError } from "../utils/errors";
+import { FieldPacket } from "mysql2";
+import  {v4 as uuid} from "uuid"
 
 type FinanceResult = [Finance[], FieldPacket[]];
 
 export interface FinancialData {
+  id?: string,
   salary: number,
   savings: number,
   monthlyExpanse: number,
-  id?: string,
 }
 export class Finance implements FinancialData{
   id?: string;

@@ -1,6 +1,7 @@
 export type UserType = {
+  id?: string,
   name: string,
   surname: string,
   job: string,
-  finance: string,
+  financeId: string,
 }
