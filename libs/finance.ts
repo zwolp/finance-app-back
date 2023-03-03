@@ -44,14 +44,12 @@ export class Finance implements FinancialData{
     if (!this.id) {
       this.id = uuid();
     }
-
     await pool.execute('INSERT INTO `finance` (`id`, `salary`, `savings`, `monthly expanse`) VALUES (:id, :salary, :savings, :monthlyExpanse)', {
       id: this.id,
       salary: this.salary,
       savings: this.savings,
       monthlyExpanse: this.monthlyExpanse,
     })
-
     return this.id
   }
 }

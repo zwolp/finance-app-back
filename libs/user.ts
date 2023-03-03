@@ -32,9 +32,9 @@ export class User implements UserType{
     this.financeId = obj.financeId;
   }
   
-  static async getAllUsers (): Promise<User[]> {
+  static async getAllUsers (): Promise<User[] | null> {
     const [result] = await pool.execute('SELECT * FROM `user` ORDER BY `name` ASC') as UserResult;
-    return result.map((obj) => new User(obj))
+    return result.length === 0 ? null : result.map((obj) => new User(obj))
   };
 
   static async getUser (id: string): Promise<User | null> {
