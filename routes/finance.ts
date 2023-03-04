@@ -13,11 +13,3 @@ export const financeRouter = express.Router()
     const financeId = await finance.addFinance();
     await User.addUserFinance(req.params.userId, financeId);
   })
-  .get('/products/:financeId', async (req, res) => {
-    const products = await Product.getAllProducts(req.params.financeId);
-    res.json(products)
-  })
-  .get('product/:id', async (req, res) => {
-    const product = await Product.getProduct(req.params.id);
-    res.json(product)
-  })

@@ -5,6 +5,7 @@ import 'express-async-errors'
 import { userRouter } from "./routes/user";
 import './utils/db'
 import { financeRouter } from "./routes/finance";
+import { productRouter } from "./routes/product";
 
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(json());
 
 app.use('/user', userRouter)
 app.use('/finance', financeRouter)
+app.use('/product', productRouter)
 
 app.listen(3001, '0.0.0.0', () => {
   console.log('server running on http://localhost:3001');
