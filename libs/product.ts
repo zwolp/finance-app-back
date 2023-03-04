@@ -2,9 +2,10 @@ import { pool } from '../utils/db';
 import { ValidationError } from '../utils/errors';
 import {v4 as uuid} from 'uuid';
 import { FieldPacket } from 'mysql2';
+import { financeProductRecord } from '../types/product';
 
 type ProductType = [Product[], FieldPacket[]];
-type ProductIdType = [{productId: string}[], FieldPacket[]]
+type ProductIdType = [financeProductRecord[], FieldPacket[]]
 
 export interface ProductData {
   id: string,
@@ -38,7 +39,7 @@ export class Product implements ProductData {
     const [result] = await pool.execute('SELECT * FROM `finance_product` WHERE `financeId`=:financeId', {
       financeId,
     }) as ProductIdType;
-    return result.length === 0 ? null : result.map(obj => obj.productId);
+    return result.length === 0 ? null : result;
   }
 
   static async getProduct (id: string) {
