@@ -32,19 +32,19 @@ export class User implements UserType{
     this.financeId = obj.financeId;
   }
   
-  static async getAllUsers (): Promise<User[] | null> {
+  static async getAll (): Promise<User[] | null> {
     const [result] = await pool.execute('SELECT * FROM `user` ORDER BY `name` ASC') as UserResult;
     return result.length === 0 ? null : result.map((obj) => new User(obj))
   };
 
-  static async getUser (id: string): Promise<User | null> {
+  static async getOne (id: string): Promise<User | null> {
     const [result] = await pool.execute('SELECT * FROM `user` WHERE `id`=:id', {
       id,
     }) as UserResult;
     return result.length === 0 ? null : new User(result[0]);
   };
 
-  async addUser (): Promise<string> {
+  async add (): Promise<string> {
     if (!this.id) {
       this.id = uuid();
     };
@@ -58,10 +58,11 @@ export class User implements UserType{
     return this.id;
   };
 
-  static async addUserFinance (userId: string, financeId: string): Promise<void> {
+  static async addFinance (userId: string, financeId: string): Promise<void> {
     await pool.execute('UPDATE `user` SET `financeId`=:financeId WHERE `id`=:userId', {
       userId,
       financeId,
     })
   }
+  
 }
