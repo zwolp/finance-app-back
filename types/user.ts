@@ -1,7 +1,7 @@
-import { FinancialData } from "../libs/finance";
-import { Personal } from "./personal";
-
-export interface User {
-  userId: string,
+export type UserType = {
+  id?: string,
+  name: string,
+  surname: string,
+  job: string,
   financeId: string,
 }
