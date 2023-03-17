@@ -54,7 +54,7 @@ export class Product implements ProductData {
   }
 
   static async addToUser (financeProduct: financeProductRecord) {
-    await pool.execute('INSERT INTO `finance_product` (financeId, productId, startDate, resources) VALUES (:financeId, productId, :startDate, :resources)', {
+    await pool.execute('INSERT INTO `finance_product` (financeId, productId, startDate, resources) VALUES (:financeId, :productId, :startDate, :resources)', {
       financeId: financeProduct.financeId,
       productId: financeProduct.productId,
       startDate: financeProduct.startDate,
