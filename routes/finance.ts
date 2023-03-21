@@ -11,6 +11,7 @@ export const financeRouter = express.Router()
     const finance = new Finance(req.body);
     const financeId = await finance.add();
     await User.addFinance(req.params.userId, financeId);
+    res.json(financeId)
   })
   .patch('/:id', async (req, res) => {
     const {id} = req.params; 

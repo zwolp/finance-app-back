@@ -60,5 +60,6 @@ export class Product implements ProductData {
       startDate: financeProduct.startDate,
       resources: financeProduct.resources,
     })
+    return true;
   }
 };

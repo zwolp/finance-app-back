@@ -15,5 +15,6 @@ export const productRouter = express.Router()
   res.json(products)
 })
 .post('/add-product', async (req, res) => {
-  await Product.addToUser(req.body)
+  const product = await Product.addToUser(req.body)
+  res.json(product);
 })
