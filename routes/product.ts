@@ -18,3 +18,8 @@ export const productRouter = express.Router()
   const product = await Product.addToUser(req.body)
   res.json(product);
 })
+.delete('/:financeId/:productId', async (req, res) => {
+  const {financeId, productId} = req.params;
+  await Product.deleteFromUser(financeId, productId);
+  res.json('record is deleted');
+})

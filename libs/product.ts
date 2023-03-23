@@ -2,7 +2,7 @@ import { pool } from '../utils/db';
 import { ValidationError } from '../utils/errors';
 import {v4 as uuid} from 'uuid';
 import { FieldPacket } from 'mysql2';
-import { financeProductRecord } from '../types/product';
+import { financeProductRecord } from '../types';
 
 type ProductType = [Product[], FieldPacket[]];
 type ProductIdType = [financeProductRecord[], FieldPacket[]]
@@ -62,4 +62,12 @@ export class Product implements ProductData {
     })
     return true;
   }
+  
+  static async deleteFromUser (financeId: string, productId: string) {
+    console.log(financeId, productId);
+    await pool.execute('DELETE FROM `finance_product` WHERE `financeId`=:financeId AND `productId`=:productId', {
+      financeId,
+      productId,
+    })
+  };
 };
