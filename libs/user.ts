@@ -62,7 +62,7 @@ export class User implements UserType{
     await pool.execute('UPDATE `user` SET `financeId`=:financeId WHERE `id`=:userId', {
       userId,
       financeId,
-    })
-  }
+    });
+  };
   
-}
+};
