@@ -13,7 +13,10 @@ const app = express();
 app.use(cors({
   origin: 'http://localhost:3000',
 }));
-app.use(json());
+/* app.use(cors({
+  origin: 'https://d3a7-5-173-172-24.eu.ngrok.io',
+})); */
+app.use(json()); 
 
 app.use('/user', userRouter)
 app.use('/finance', financeRouter)

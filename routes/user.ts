@@ -15,7 +15,7 @@ export const userRouter = express.Router()
     const user = new User(req.body);
     await user.add();
     res.json(user);
-  });
+  })
 /*   .delete('/delete', async (req, res) => {
     const user = await Personal.getUser(req.body.id);
     if (user) {

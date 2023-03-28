@@ -8,6 +8,8 @@ export const financeRouter = express.Router()
     res.json(finance)
   })
   .post('/:userId', async (req, res) => {
+    console.log(req.params);
+    console.log(req.body);
     const finance = new Finance(req.body);
     const financeId = await finance.add();
     await User.addFinance(req.params.userId, financeId);

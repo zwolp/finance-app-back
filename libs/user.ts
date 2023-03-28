@@ -24,13 +24,12 @@ export class User implements UserType{
       throw new ValidationError('Nie prawidłowa wartość pola "stanowisko"');
     };
 
-
     this.id = obj.id;
     this.name = obj.name;
     this.surname = obj.surname;
     this.job = obj.job;
     this.financeId = obj.financeId;
-  }
+  };
   
   static async getAll (): Promise<User[] | null> {
     const [result] = await pool.execute('SELECT * FROM `user` ORDER BY `name` ASC') as UserResult;
@@ -64,5 +63,4 @@ export class User implements UserType{
       financeId,
     });
   };
-  
 };
