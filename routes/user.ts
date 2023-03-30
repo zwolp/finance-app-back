@@ -1,5 +1,6 @@
 import * as express from "express";
 import { Finance } from "../libs/finance";
+import { Product } from "../libs/product";
 import { User } from "../libs/user";
 
 export const userRouter = express.Router()
@@ -15,10 +16,19 @@ export const userRouter = express.Router()
     const user = new User(req.body);
     await user.add();
     res.json(user);
-  });
-/*   .delete('/delete', async (req, res) => {
-    const user = await Personal.getUser(req.body.id);
-    if (user) {
-      user.deleteUser()
-    }
-  }) */
+  })
+  .delete('/:id', async (req, res) => {
+    if (!req.params.id) {
+      res.json(false);
+      return
+    };
+    const user = await User.getOne(req.params.id);
+    if (!user) {
+      res.json(false);
+      return
+    };
+    await Product.deleteAllOfUser(user.financeId);
+    await Finance.delete(user.financeId);
+    await user.deleteUser();
+    res.json(`User ${req.params.id} deleted`);
+  })
