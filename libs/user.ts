@@ -57,10 +57,18 @@ export class User implements UserType{
     return this.id;
   };
 
-  static async addFinance (userId: string, financeId: string): Promise<any> {
+  async deleteUser (): Promise<boolean> {
+    await pool.execute('DELETE FROM `user` WHERE `id`=:id', {
+      id: this.id,
+    });
+    return true
+  }
+
+  static async addFinance (userId: string, financeId: string): Promise<boolean> {
     await pool.execute('UPDATE `user` SET `financeId`=:financeId WHERE `id`=:userId', {
       userId,
       financeId,
     });
+    return true
   };
 };

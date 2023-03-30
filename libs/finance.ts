@@ -61,4 +61,10 @@ export class Finance implements FinancialData{
     });
     return true;
   };
+  static async delete (id: string): Promise<boolean> {
+    await pool.execute('DELETE FROM `finance` WHERE `id`=:id', {
+      id,
+    });
+    return true;
+  };
 };
