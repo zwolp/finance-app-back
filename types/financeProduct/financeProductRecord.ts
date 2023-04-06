@@ -1,4 +1,4 @@
-export type financeProductRecord = {
+export type FinanceProductRecord = {
   id: number,
   financeId: string,
   productId: string,

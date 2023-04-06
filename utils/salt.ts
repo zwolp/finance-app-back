@@ -1,0 +1,1 @@
+export const salt = 'ASJ*&%^T87%^vasdvajgh&%^89b9poip8naHGsd/,.';
