@@ -16,6 +16,7 @@ export class Finance implements FinancialData{
   salary: number;
   savings: number;
   monthlyExpanse: number;
+
   constructor(obj: FinancialData){
     if(!obj.salary || obj.salary > 9999999) {
       throw new ValidationError('Nie prawidłowa wartość pola "wynagrodzenie"');
@@ -37,20 +38,20 @@ export class Finance implements FinancialData{
     const [result] = await pool.execute('SELECT `salary`, `savings`, `monthlyExpanse` FROM `finance` WHERE `id`=:id', {
       id,
     }) as FinanceResult;
-    return result.length === 0 ? null : result[0]
+    return result.length === 0 ? null : result[0];
   };
 
   async add (): Promise<string> {
     if (!this.id) {
       this.id = uuid();
-    }
+    };
     await pool.execute('INSERT INTO `finance` (`id`, `salary`, `savings`, `monthlyExpanse`) VALUES (:id, :salary, :savings, :monthlyExpanse)', {
       id: this.id,
       salary: this.salary,
       savings: this.savings,
       monthlyExpanse: this.monthlyExpanse,
     });
-    return this.id
+    return this.id;
   };
   async update (id: string): Promise<boolean> {
     await pool.execute('UPDATE `finance` SET `salary`=:salary, `savings`=:savings, `monthlyExpanse`=:monthlyExpanse WHERE `id`=:id', {

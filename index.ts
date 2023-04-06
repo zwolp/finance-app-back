@@ -6,6 +6,7 @@ import { userRouter } from "./routes/user";
 import './utils/db';
 import { financeRouter } from "./routes/finance";
 import { productRouter } from "./routes/product";
+import { adminRouter } from "./routes/admin";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(json());
 app.use('/user', userRouter);
 app.use('/finance', financeRouter);
 app.use('/product', productRouter);
+app.use('/admin', adminRouter);
 
 app.listen(3001, '0.0.0.0', () => {
   console.log('server running on http://localhost:3001');

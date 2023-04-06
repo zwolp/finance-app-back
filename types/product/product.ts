@@ -7,3 +7,7 @@ export type Product = {
   maxContribution: number,
   description: string,
 }
+
+export type ProductWithoutId = Omit<Product, 'id'>;
+
+export type financeId = { financeId: string };
