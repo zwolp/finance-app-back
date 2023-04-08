@@ -7,6 +7,7 @@ import './utils/db';
 import { financeRouter } from "./routes/finance";
 import { productRouter } from "./routes/product";
 import { adminRouter } from "./routes/admin";
+import { financeProductRouter } from "./routes/finance-product";
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(json());
 app.use('/user', userRouter);
 app.use('/finance', financeRouter);
 app.use('/product', productRouter);
+app.use('/finance-product', financeProductRouter);
 app.use('/admin', adminRouter);
 
 app.listen(3001, '0.0.0.0', () => {

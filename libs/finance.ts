@@ -38,7 +38,7 @@ export class Finance implements FinancialData{
     const [result] = await pool.execute('SELECT `salary`, `savings`, `monthlyExpanse` FROM `finance` WHERE `id`=:id', {
       id,
     }) as FinanceResult;
-    return result.length === 0 ? null : result[0];
+    return result.length === 0 ? null : new Finance(result[0]);
   };
 
   async add (): Promise<string> {

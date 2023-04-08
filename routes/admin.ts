@@ -2,7 +2,7 @@ import * as express from 'express'
 import { Admin } from '../libs/admin'
 import { hash } from '../utils/hash';
 import { salt } from '../utils/salt';
-import { Product } from '../libs/product';
+// import { Product } from '../libs/product';
 
 export const adminRouter = express.Router()
   .post('/login', async (req, res) => {
@@ -13,11 +13,6 @@ export const adminRouter = express.Router()
     res.json(hash(req.body.password, salt) === data.password);
     };
   })
-  .post('/add-product', async (req, res) => {
-    const product = new Product(req.body);
-    const id = product.add();
-    res.json(id);
-  })
   .get('/articles', async (req, res) => {
     const articles = await Admin.getArticles();
     res.json(articles ? articles : []);
@@ -27,6 +22,11 @@ export const adminRouter = express.Router()
     return res.json(id);
   })
   .delete('/article/:id', async (req, res) => {
-    const deleted = Admin.delete(req.params.id)
+    const deleted = Admin.deleteArticle(req.params.id)
     res.json(deleted);
   })
+  // .post('/add-product', async (req, res) => {
+  //   const product = new Product(req.body);
+  //   const id = product.add();
+  //   res.json(id);
+  // })

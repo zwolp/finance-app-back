@@ -33,7 +33,7 @@ export class Admin {
     return id;
   }
 
-  static async delete (id: string) {
+  static async deleteArticle (id: string) {
     await pool.execute('DELETE FROM `article` WHERE `id`=:id', {
       id,
     })
