@@ -1,9 +1,7 @@
 export type FinanceProductRecord = {
-  id: string, // zminione z number
+  id: string,
   financeId: string,
   productId: string,
   startDate: string,
   resources: number,
 }
-
-/* zmienić typ przychodzący z bazy na date wszędzie */

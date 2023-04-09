@@ -15,6 +15,7 @@ export class User implements UserType{
 
   constructor(obj: UserType){
     if(!obj.name || obj.name.length > 100) {
+      console.log(obj.name);
       throw new ValidationError('Nie prawidłowa wartość pola "imię"');
     };
     if(!obj.surname || obj.surname.length > 100) {
