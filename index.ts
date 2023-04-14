@@ -30,11 +30,11 @@ app.use(cors({
 
 app.use(json()); 
 
-app.use('/user', userRouter);
-app.use('/finance', financeRouter);
-app.use('/product', productRouter);
-app.use('/finance-product', financeProductRouter);
-app.use('/admin', adminRouter);
+app.use('/api/user', userRouter);
+app.use('/api/finance', financeRouter);
+app.use('/api/product', productRouter);
+app.use('/api/finance-product', financeProductRouter);
+app.use('/api/admin', adminRouter);
 
 app.listen(3001, '0.0.0.0', () => {
   console.log('server running on http://localhost:3001');
