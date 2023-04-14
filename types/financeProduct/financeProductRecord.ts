@@ -1,5 +1,5 @@
 export type FinanceProductRecord = {
-  id: number,
+  id: string,
   financeId: string,
   productId: string,
   startDate: string,
