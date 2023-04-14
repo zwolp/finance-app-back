@@ -9,6 +9,7 @@ import { financeRouter } from "./routes/finance";
 import { productRouter } from "./routes/product";
 import { adminRouter } from "./routes/admin";
 import { financeProductRouter } from "./routes/finance-product";
+import { config } from './config/config'
 
 const app = express();
 
@@ -25,7 +26,7 @@ app.use(limiter);
   origin: '*',
 })); */
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: config.corsOrigin,
 }));
 
 app.use(json()); 
